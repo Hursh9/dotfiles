@@ -70,7 +70,7 @@ let mapleader = " "
 
 " Security
 set modelines=0
-
+set regexpengine=1
 " Show line numbers
 set rnu
 set number
@@ -117,7 +117,6 @@ nnoremap / /\v
 vnoremap / /\v
 "copy and paste
 vnoremap <C-c> "+y
-vnoremap <C-p> "+p
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 set hlsearch
@@ -139,9 +138,22 @@ nnoremap <leader>k :wincmd k<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
-nmap :!ptp :!ptpython<CR>
-" Remap help key.
 
+"building and outputting cppfiles
+function! PotionCompileAndRunFile()
+    silent !clear
+    silent execute "!"."g++ ".bufname("%")." -o ".bufname("%")[:-5]."_out"
+    execute "!"."./".bufname("%")[:-5]."_out"
+    redraw!
+endfunction
+
+nnoremap <leader>r :call PotionCompileAndRunFile()<cr>
+"nmap <leader>bs :!g++ % -o %:r_out<CR>
+"nmap <leader>rs :!clear<CR>:!./%:r_out<CR>
+"nmap :!ptp :!ptpython<CR>
+" Remap help key.
+nmap <C-i> :bp<CR>
+nmap <C-o> :bn<CR>
 "inoremap <F1> <ESC>:set invfullscreen<CR>a
 "nnoremap <F1> :set invfullscreen<CR>
 "vnoremap <F1> :set invfullscreen<CR>
