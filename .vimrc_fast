@@ -1,8 +1,8 @@
-"if empty(glob('~/.vim/autoload/plug.vim'))
-"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-"endif
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'farfanoide/vim-kivy'
 call plug#end()
 " enable tabline
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 "let g:airline_theme='iceberg'
 "let g:airline#extensions#tabline#enabled = 1 
 let g:ycm_python_binary_path = 'python3'
@@ -48,3 +48,29 @@ set number
 set ruler
 " Encoding
 set encoding=utf-8
+" Searching
+nnoremap / /\v
+vnoremap / /\v
+"copy and paste
+vnoremap <C-c> "+y
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+map <leader><space> :let @/=''<cr> " clear search
+set noshowmode
+nnoremap <C-v> :wincmd v<CR>
+nnoremap <leader>v :sp<CR>
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+
+"nnoremap <leader>io :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+" for the git
+nmap <leader>gs :G<CR>
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+
