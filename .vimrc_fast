@@ -1,12 +1,12 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+"If empty(glob('~/.vim/autoload/plug.vim'))
+"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
 call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'jremmen/vim-ripgrep'  
+  Plug 'jremmen/vim-ripgrep'
   Plug 'kien/ctrlp.vim'
   Plug 'ycm-core/YouCompleteMe'
   Plug 'ervandew/supertab'
@@ -14,26 +14,32 @@ call plug#begin('~/.vim/plugged')
   Plug 'cocopon/iceberg.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'farfanoide/vim-kivy'
+  Plug 'sainnhe/gruvbox-material'
+  Plug 'Dave-Elec/gruvbox'
+  Plug 'preservim/nerdcommenter'
 call plug#end()
 " enable tabline
 "let g:airline_powerline_fonts = 1
-"let g:airline_theme='iceberg'
-"let g:airline#extensions#tabline#enabled = 1 
+"let g:airline_theme='gruvbox_material'
+let g:airline#extensions#tabline#enabled = 1
+"let g:gruvbox_material_transparent_background=1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:yvm_min_num_of_chars_for_completion = 1
 let g:ctrlp_use_caching = 0
+let g:gruvbox_material_palette='mix'
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_better_performance = 1
 set novisualbell
-set belloff = 
+set belloff =
 set shortmess=IA
-if has('termguicolors')
-  set termguicolors
-  endif
+"if has('termguicolors')
+"  set termguicolors
+"  endif
 "colorscheme gruvbox-material
-colorscheme iceberg
-set background=dark
-set colorcolumn=80
-set t_Co=256
+"set background=dark
+"set colorcolumn=80
+"set t_Co=256
 "autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
 " TODO: Load plugins here (pathogen or vundle)
 " Turn on syntax highlighting
@@ -43,6 +49,7 @@ filetype plugin indent on
 " TODO: Pick a leader key
 let mapleader = " "
 " Show line numbers
+set nowrap
 set rnu
 set number
 set ruler
@@ -53,6 +60,7 @@ nnoremap / /\v
 vnoremap / /\v
 "copy and paste
 vnoremap <C-c> "+y
+set clipboard=unnamed
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 set hlsearch
@@ -67,10 +75,16 @@ nnoremap <leader>v :sp<CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
-
-"nnoremap <leader>io :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"buffer tricks
+nnoremap <C-i> :bp <CR>
+nnoremap <C-o> :bn <CR>
+nnoremap <leader>io :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 " for the git
 nmap <leader>gs :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
-
+nnoremap <F5> :silent !python3 -i % <CR> :redraw<CR> :redraw!<CR>
+nnoremap <F4> :redraw!<CR>
+" completer
+nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
+nnoremap <silent> <leader>gf :YcmCompleter FixIt<CR>
