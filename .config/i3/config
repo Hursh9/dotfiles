@@ -7,8 +7,8 @@ exec_always --no-startup-id autotiling
 # #---Basic Definitions---# #
 #smart_gaps on
 smart_borders on
-set $inner_gaps 15
-set $outer_gaps 12
+set $inner_gaps 12
+set $outer_gaps 9
 set $term --no-startup-id urxvt
 set $mod Mod4
 set $alt Mod1
@@ -50,7 +50,7 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 bindsym $mod+w 			            exec --no-startup-id brave
 
 # e
-bindsym $mod+e 			            exec $term -e ranger
+bindsym $mod+e 			            exec $term -e lf
 bindsym $mod+Shift+r		        exec $term --no-startup-id $suspend
 
 # r
@@ -76,14 +76,14 @@ bindsym $mod+o			            exec --no-startup-id $term -e nvim ~/Repos/blog/con
 # bindsym $mod+Shift			        exec --no-startup-id $term -e nvim ~/Repos
 
 # a
-bindsym $mod+a		              exec $term -e alsamixer
+bindsym $mod+a		              exec $term -e pulsemixer
 
 # s
 bindsym $mod+s        			    sticky toggle;
 bindsym $mod+Shift+s			      split toggle
 
 # d
-bindsym $mod+d                  exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d                  exec dmenu_run -p "" -fn "SF Mono Nerd Font-13" -nb "#111217" -nf "#9aa8ea" -sf "#0f0f0f" -sb "#9aa8ea"
 
 # f
 bindsym $mod+f			            fullscreen toggle
@@ -113,7 +113,7 @@ bindsym $mod+l			            focus right
 bindsym $mod+Shift+l		        move right 30
 bindsym $mod+Ctrl+l		          move workspace to output right
 
-bindsym $mod+semicolon 			    exec --no-startup-id skippy-xd
+#bindsym $mod+semicolon 			    exec --no-startup-id skippy-xd
 
 # z
 bindsym $mod+z			            exec --no-startup-id $term -e nvim ~/.zshrc
@@ -136,8 +136,12 @@ bindsym $mod+b			            exec --no-startup-id feh --bg-fill --randomize ~/Pi
 bindsym $mod+n			            exec --no-startup-id kill -s USR1 $(pidof deadd-notification-center)
 
 # m
-bindsym $mod+m		              exec --no-startup-id spotify
+bindsym $mod+m		              exec $term --no-startup-id pulsemixer
 bindsym $mod+Shift+m		        exec --no-startup-id discord
+
+# :
+bindsym $mod+semicolon				exec dmenu-emoji.sh list | dmenu -p "" -fn "SF Mono Nerd Font-13" -nb "#111217" -nf "#9aa8ea" -sf "#0f0f0f" -sb "#9aa8ea" | dmenu-emoji.sh copy
+
 
 
 # #---Workspace Bindings---# #
@@ -145,7 +149,7 @@ bindsym $mod+Tab		            exec --no-startup-id rofi-menu-windows
 bindsym $mod+Shift+Tab		      workspace next
 bindsym $mod+apostrophe		      split horizontal ;; exec $term
 bindsym $mod+slash		          split vertical ;; exec $term
-bindsym $mod+Shift+slash	      kill
+#bindsym $mod+Shift+slash	      kill
 bindsym $mod+backslash		      workspace back_and_forth
 
 # Assign Workspaces:
@@ -162,10 +166,10 @@ set $ws10 "10 "
 
 #assign [class ="Gnome-terminal"] $ws1
 assign [class ="Google-chrome"] $ws2
-#assign [class ="Google-chrome"] $ws3
+assign [class ="Microsoft Teams - Preview"] $ws3
 assign [class ="discord"] $ws4
-#assign [class ="Google-chrome"] $ws4
-assign [class ="Spotify"] $ws10
+assign [class ="WhatsApp"] $ws5
+assign [class ="spotify"] $ws10
 
 # Assing autofloat
 for_window [title=".*Emulator.*"] floating enable
@@ -226,16 +230,17 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # colors
-set $bg-color		#2a2a2a
-set $inactive-bg-color	#2a2a2a
-set $text-color		#fbf1c7
+set $bg-color		#111217
+set $inactive-bg-color	#111217
+set $text-color		#9aa8ea
 set $inactive-text-color #676e7d
-set $urgent-bg-color	#e53935
+set $urgent-bg-color	#111217
+set $urgent-fg-color 	#e48e8b
 set $indicator		#ebdbb2
 
 bar {
 	position top
-  	status_command i3blocks -c ~/.i3/i3blocks.conf
+	  status_command i3blocks -c ~/.i3/i3blocks.conf
 	font pango: SF Mono Semibold 12
 	tray_padding 0
 	colors {
@@ -243,9 +248,11 @@ bar {
 		#                  border             background         text
 		focused_workspace  $bg-color          $bg-color          $text-color
 		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $urgent-fg-color
 	}
 }
+
+exec_always --no-startup-id ~/.config/polybar/launch.sh 
 
 # Window borders
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #abb2bf
@@ -256,6 +263,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 exec xset r rate 200 50
-exec_always --no-startup-id feh --bg-scale "/home/hurshgupta/Pictures/Wallpapers/kevin-grieve.jpg"
+exec_always --no-startup-id feh --bg-scale "/home/hurshgupta/Pictures/Wallpapers/Atoms.jpg"
 exec_always --no-startup-id compton
 bindsym $mod+Mod2+KP_5 exec --no-startup-id playerctl --player=spotify play-pause
+exec setxkbmap -option caps:escape

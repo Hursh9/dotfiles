@@ -21,7 +21,7 @@ call plug#end()
 " enable tabline
 "let g:airline_powerline_fonts = 1
 "let g:airline_theme='gruvbox_material'
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 "let g:gruvbox_material_transparent_background=1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -30,6 +30,7 @@ let g:ctrlp_use_caching = 0
 let g:gruvbox_material_palette='mix'
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_better_performance = 1
+let g:colors_name='hg'
 set novisualbell
 set belloff =
 set shortmess=IA
@@ -38,7 +39,7 @@ set shortmess=IA
 "  endif
 "colorscheme gruvbox-material
 "set background=dark
-"set colorcolumn=80
+set colorcolumn=80
 "set t_Co=256
 "autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
 " TODO: Load plugins here (pathogen or vundle)
@@ -55,7 +56,7 @@ set number
 set ruler
 " Encoding
 set encoding=utf-8
-" Searching
+"Searching
 nnoremap / /\v
 vnoremap / /\v
 "copy and paste
@@ -75,6 +76,7 @@ nnoremap <leader>v :sp<CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
 "buffer tricks
 nnoremap <C-i> :bp <CR>
 nnoremap <C-o> :bn <CR>
@@ -84,7 +86,10 @@ nmap <leader>gs :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nnoremap <F5> :silent !python3 -i % <CR> :redraw<CR> :redraw!<CR>
+nnoremap <F8> :silent !python3  % <CR> :redraw<CR> :redraw!<CR>
+
 nnoremap <F4> :redraw!<CR>
 " completer
 nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>gf :YcmCompleter FixIt<CR>
+nnoremap <C-r> :redo<CR>
